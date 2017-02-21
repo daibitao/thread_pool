@@ -4,7 +4,13 @@
 * 创建时间：2107-2-21
 * 文件说明：定义线程池相关结构
 ******************************************************************/
+#ifndef __thread_pool_h__
+#define __thread_pool_h__
+
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
 #include <pthread.h>
 
 /*描述任务*/
@@ -33,6 +39,8 @@ void pthread_pool_init(pthread_pool *pool, int thread_num);
 /*2，往线程池添加任务*/
 void pthread_pool_add_task(pthread_pool *pool, void (*process)(void *arg), void *arg);
 /*3，注销线程池*/
-void pthread_pool_destroy(pthread_pool *pool);
+int pthread_pool_destroy(pthread_pool *pool);
 /*4，线程任务处理函数*/
 void *thread_routine(void *arg);
+
+#endif 

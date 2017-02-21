@@ -121,10 +121,10 @@ void pthread_pool_add_task(pthread_pool *pool, void (*process)(void *arg), void 
 /*****************************************************************
 * 函数名  ：pthread_pool_destroy
 * 参数    ：*pool 接收线程池地址
-* 返回值  ：无
+* 返回值  ：-1 异常返回；0正常返回
 * 函数功能：销毁线程池
 ******************************************************************/
-void pthread_pool_destroy(pthread_pool *pool)
+int pthread_pool_destroy(pthread_pool *pool)
 {
 	/*防止重复调用*/
 	if (pool->destroy_pool)
@@ -152,6 +152,8 @@ void pthread_pool_destroy(pthread_pool *pool)
 	/*销毁互斥锁和条件变量*/
 	pthread_mutex_destroy(&(pool->queue_lock));
 	pthread_cond_destroy(&(pool->queue_cond));
+	
+	return 0;
 }
 
 
